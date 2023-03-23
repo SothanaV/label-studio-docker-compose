@@ -1,0 +1,27 @@
+version: "3.9"
+
+volumes:
+  db: {}
+
+services:  
+  db:
+    container_name: label-studio-db
+    image: postgres:11.5
+    hostname: db
+    restart: always
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  app:
+    container_name: label-studio-app
+    image: heartexlabs/label-studio:1.7.2
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ./data:/label-studio/data:rw
