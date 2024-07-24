@@ -6,7 +6,7 @@ volumes:
 services:  
   db:
     container_name: label-studio-db
-    image: postgres:11.5
+    image: postgres:16.3
     hostname: db
     restart: always
     environment:
